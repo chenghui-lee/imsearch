@@ -13,6 +13,7 @@ use opencv::imgcodecs;
 use opencv::prelude::*;
 use opencv::types;
 use opencv::{core, imgproc};
+use opencv::core::Vector;
 
 pub fn detect_and_compute(
     orb: &mut Slam3ORB,
@@ -91,7 +92,7 @@ pub fn draw_matches_knn(
     img2: &impl core::ToInputArray,
     keypoints2: &types::VectorOfKeyPoint,
     matches1to2: &types::VectorOfVectorOfDMatch,
-    matches_mask: &types::VectorOfVectorOfi8,
+    matches_mask: &Vector<Vector<i8>>,
 ) -> Result<Mat> {
     let mut output = core::Mat::default();
     features2d::draw_matches_knn(
