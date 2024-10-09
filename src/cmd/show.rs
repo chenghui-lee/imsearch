@@ -8,6 +8,8 @@ use opencv::{core, features2d, types};
 use structopt::StructOpt;
 use opencv::core::Vector;
 
+use libc::c_char;
+
 #[derive(StructOpt, Debug, Clone)]
 pub struct ShowKeypoints {
     /// Path to an image
@@ -61,17 +63,17 @@ impl SubCommandExtend for ShowMatches {
         let mut matches_mask = vec![];
         for match_ in matches.iter() {
             if match_.len() != 2 {
-                matches_mask.push(Vector::<i8>::from_iter([0, 0]));
+                matches_mask.push(Vector::<c_char>::from_iter([0, 0]));
                 continue;
             }
             let (m, n) = (match_.get(0)?, match_.get(1)?);
             if m.distance < 0.7 * n.distance {
-                matches_mask.push(Vector::<i8>::from_iter([1, 0]));
+                matches_mask.push(Vector::<c_char>::from_iter([1, 0]));
             } else {
-                matches_mask.push(Vector::<i8>::from_iter([0, 0]));
+                matches_mask.push(Vector::<c_char>::from_iter([0, 0]));
             }
         }
-        let matches_mask = Vector::<Vector::<i8>>::from(matches_mask);
+        let matches_mask = Vector::<Vector::<c_char>>::from(matches_mask);
 
         let output = utils::draw_matches_knn(&img1, &kps1, &img2, &kps2, &matches, &matches_mask)?;
         match &self.output {

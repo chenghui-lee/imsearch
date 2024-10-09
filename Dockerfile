@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y \
 # Build and install Faiss from source
 RUN git clone https://github.com/facebookresearch/faiss.git /faiss && \
     cd /faiss && \
-    cmake -B build . -DFAISS_ENABLE_PYTHON=OFF -DFAISS_ENABLE_GPU=OFF -DFAISS_OPT_LEVEL=avx2 && \
-    make -C build -j$(nproc) faiss_avx2 && \
+    cmake -B build . -DFAISS_ENABLE_PYTHON=OFF -DFAISS_ENABLE_GPU=OFF -DFAISS_OPT_LEVEL=generic && \
+    make -C build -j$(nproc) && \
     make -C build install
 
 COPY . .
