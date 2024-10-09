@@ -28,6 +28,8 @@ RUN git clone https://github.com/facebookresearch/faiss.git /faiss && \
     make -C build -j$(nproc) faiss_avx2 && \
     make -C build install
 
-RUN cargo install --git https://github.com/lolishinshi/imsearch --root /usr/local
+COPY . .
+
+RUN cargo install --path . --root /usr/local
 
 ENTRYPOINT ["/bin/bash", "-c", "while :; do sleep 10; done"]
