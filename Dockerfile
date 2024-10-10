@@ -1,5 +1,5 @@
 # Use an official image with Rust pre-installed
-FROM rust:1.72 as builder
+FROM rust:1.81.0 as builder
 
 # Set up the Rust project
 WORKDIR /usr/src/app
@@ -19,10 +19,12 @@ RUN apt-get update && apt-get install -y \
     clang \
     libssl-dev \
     pkg-config \
-    libgflags-dev
+    libgflags-dev \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Build and install Faiss from source
-RUN git clone https://github.com/facebookresearch/faiss.git /faiss && \
+RUN git clone "https://github.com/facebookresearch/faiss.git" /faiss && \
     cd /faiss && \
     cmake -B build . -DFAISS_ENABLE_PYTHON=OFF -DFAISS_ENABLE_GPU=OFF -DFAISS_OPT_LEVEL=generic && \
     make -C build -j$(nproc) && \
