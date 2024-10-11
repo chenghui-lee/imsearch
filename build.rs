@@ -129,7 +129,7 @@ fn get_version_from_headers(header_dir: &Path) -> Option<Version> {
 fn main() {
     println!("cargo:rerun-if-changed=src/ORB_SLAM3");
     println!("cargo:rerun-if-changed=src/faiss");
-    println!("cargo:rustc-link-lib=faiss_avx2");
+    println!("cargo:rustc-link-lib=faiss");
     println!("cargo:rustc-link-lib=gomp");
     println!("cargo:rustc-link-lib=stdc++");
     println!("cargo:rustc-link-lib=blas");
