@@ -17,15 +17,13 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: chenghuilee/imsearch
-          tags: |
-            # minimal (short sha)
-            type=sha,prefix=sha-
-            # type=ref,event=branch
-            # latest (latest tag)
-            type=latest
+          # tags: |
+          #   # minimal (short sha)
+          #   type=sha,prefix=sha-
+          #   # type=ref,event=branch
           flavor: |
-            latest=false
-            prefix=latest-,onlatest=true
+            latest=auto
+            # prefix=latest-,onlatest=true
             
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
